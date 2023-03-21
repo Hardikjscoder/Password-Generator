@@ -1,23 +1,49 @@
+// Selectors
 const password = document.getElementById("password");
 const lengthBar = document.getElementById("lengthBar");
 const uppercaseCheckBox = document.getElementById("uppercaseCheck");
 const numbersCheckBox = document.getElementById("numbersCheck");
 const symbolsCheckBox = document.getElementById("symbolsCheck");
 
+// Initial Variables
 const lowercase = "abcdefghijklmnopqrstuvwxyz";
 const uppercase = lowercase.toUpperCase();
 const numbers = "0123456789";
 const symbols = '~!@#$%^&*()_+{}":?><;.,';
 
+// Show the password
 document.getElementById("generateBtn").onclick = function () {
   password.style.display = "block";
+  document.getElementById("copyBtn").style.display = "block";
   document.getElementById("generateBtn").style.display = "none";
   if (password.textContent.length === 0) {
-    generatePassword();
+    main();
   }
 };
 
-const generatePassword = () => {
+// =========================== Utility Functions ===========================
+
+// Function to shuffle (randomly sort) an array's elements
+const shuffleArr = (arr) => {
+  for (let i = arr.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    let temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+  }
+};
+
+// Function to generate random password for the given string and arr passed as arguments
+const generateRandomPassword = (str, arr) => {
+  let randomGeneratedPassword = str.substring(
+    Math.floor(Math.random() * arr),
+    lengthBar.value
+  );
+  password.textContent = randomGeneratedPassword;
+};
+
+// =========================== Main ===========================
+const main = () => {
   document.getElementById("lengthText").textContent = lengthBar.value;
   // Generate password for lowercase
   generatePasswordLowerCase();
@@ -36,21 +62,9 @@ const generatePassword = () => {
     const upperLowerCaseString = lowercase.concat(uppercase);
     const numUpLowString = upperLowerCaseString.concat(numbers);
     let numUpperLowerArr = numUpLowString.split("");
-
-    for (let i = numUpperLowerArr.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1));
-      let temp = numUpperLowerArr[i];
-      numUpperLowerArr[i] = numUpperLowerArr[j];
-      numUpperLowerArr[j] = temp;
-    }
-
+    shuffleArr(numUpperLowerArr);
     let newNumUpperLowerStringCase = numUpperLowerArr.join("");
-
-    let randomGeneratedPassword = newNumUpperLowerStringCase.substring(
-      Math.floor(Math.random() * numUpperLowerArr),
-      lengthBar.value
-    );
-    password.textContent = randomGeneratedPassword;
+    generateRandomPassword(newNumUpperLowerStringCase, numUpperLowerArr);
   }
 
   // Generate password when uppercase and symbols is checked
@@ -58,21 +72,9 @@ const generatePassword = () => {
     const upperLowerCaseString = lowercase.concat(uppercase);
     const symUpLowString = upperLowerCaseString.concat(symbols);
     let symUpperLowerArr = symUpLowString.split("");
-
-    for (let i = symUpperLowerArr.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1));
-      let temp = symUpperLowerArr[i];
-      symUpperLowerArr[i] = symUpperLowerArr[j];
-      symUpperLowerArr[j] = temp;
-    }
-
+    shuffleArr(symUpperLowerArr);
     let newSymUpperLowerStringCase = symUpperLowerArr.join("");
-
-    let randomGeneratedPassword = newSymUpperLowerStringCase.substring(
-      Math.floor(Math.random() * symUpperLowerArr),
-      lengthBar.value
-    );
-    password.textContent = randomGeneratedPassword;
+    generateRandomPassword(newSymUpperLowerStringCase, symUpperLowerArr);
   }
 
   // Generate password when numbers and symbols is checked
@@ -80,18 +82,9 @@ const generatePassword = () => {
     const numLowerCaseString = lowercase.concat(numbers);
     const symNumLowString = numLowerCaseString.concat(symbols);
     let symNumLowerArr = symNumLowString.split("");
-    for (let i = symNumLowerArr.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1));
-      let temp = symNumLowerArr[i];
-      symNumLowerArr[i] = symNumLowerArr[j];
-      symNumLowerArr[j] = temp;
-    }
+    shuffleArr(symNumLowerArr);
     let newSymNumLowerStringCase = symNumLowerArr.join("");
-    let randomGeneratedPassword = newSymNumLowerStringCase.substring(
-      Math.floor(Math.random() * symNumLowerArr),
-      lengthBar.value
-    );
-    password.textContent = randomGeneratedPassword;
+    generateRandomPassword(newSymNumLowerStringCase, symNumLowerArr);
   }
 
   // Generate password when uppercase, numbers and symbols is checked
@@ -104,101 +97,63 @@ const generatePassword = () => {
     const numUpLowerCaseString = upLowString.concat(numbers);
     const symNumUpLowString = numUpLowerCaseString.concat(symbols);
     let symNumUpLowerArr = symNumUpLowString.split("");
-
-    for (let i = symNumUpLowerArr.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1));
-      let temp = symNumUpLowerArr[i];
-      symNumUpLowerArr[i] = symNumUpLowerArr[j];
-      symNumUpLowerArr[j] = temp;
-    }
-
+    shuffleArr(symNumUpLowerArr);
     let newSymNumUpLowerStringCase = symNumUpLowerArr.join("");
-
-    let randomGeneratedPassword = newSymNumUpLowerStringCase.substring(
-      Math.floor(Math.random() * symNumUpLowerArr),
-      lengthBar.value
-    );
-    password.textContent = randomGeneratedPassword;
+    generateRandomPassword(newSymNumUpLowerStringCase, symNumUpLowerArr);
   }
 };
 
+// =========================== Functions ===========================
+
+// Function to generate password for lowercase
 const generatePasswordLowerCase = () => {
   let lowercaseArr = lowercase.split("");
-
-  for (let i = lowercaseArr.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    let temp = lowercaseArr[i];
-    lowercaseArr[i] = lowercaseArr[j];
-    lowercaseArr[j] = temp;
-  }
-
+  shuffleArr(lowercaseArr);
   let newLowerCase = lowercaseArr.join("");
-
-  let randomGeneratedPassword = newLowerCase.substring(
-    Math.floor(Math.random() * lowercaseArr),
-    lengthBar.value
-  );
-  password.textContent = randomGeneratedPassword;
+  generateRandomPassword(newLowerCase, lowercaseArr);
 };
 
+// Function to generate password for uppercase
 const generatePasswordUpperCase = () => {
   const upperLowerCaseString = lowercase.concat(uppercase);
   let upperLowerArr = upperLowerCaseString.split("");
-
-  for (let i = upperLowerArr.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    let temp = upperLowerArr[i];
-    upperLowerArr[i] = upperLowerArr[j];
-    upperLowerArr[j] = temp;
-  }
-
+  shuffleArr(upperLowerArr);
   let newUpperLowerStringCase = upperLowerArr.join("");
-
-  let randomGeneratedPassword = newUpperLowerStringCase.substring(
-    Math.floor(Math.random() * upperLowerArr),
-    lengthBar.value
-  );
-  password.textContent = randomGeneratedPassword;
+  generateRandomPassword(newUpperLowerStringCase, upperLowerArr);
 };
 
+// Function to generate password for numbers
 const generatePasswordNumbers = () => {
   const numLowerString = lowercase.concat(numbers);
   let numLowerArr = numLowerString.split("");
-
-  for (let i = numLowerArr.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    let temp = numLowerArr[i];
-    numLowerArr[i] = numLowerArr[j];
-    numLowerArr[j] = temp;
-  }
-
+  shuffleArr(numLowerArr);
   let newNumLowerString = numLowerArr.join("");
-
-  let randomGeneratedPassword = newNumLowerString.substring(
-    Math.floor(Math.random() * numLowerArr),
-    lengthBar.value
-  );
-  password.textContent = randomGeneratedPassword;
+  generateRandomPassword(newNumLowerString, numLowerArr);
 };
 
+// Function to generate password for symbols
 const generatePasswordSymbols = () => {
   const symbolLowerString = lowercase.concat(symbols);
   let symbolLowArr = symbolLowerString.split("");
-
-  for (let i = symbolLowArr.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    let temp = symbolLowArr[i];
-    symbolLowArr[i] = symbolLowArr[j];
-    symbolLowArr[j] = temp;
-  }
-
+  shuffleArr(symbolLowArr);
   let newSymbolLowString = symbolLowArr.join("");
-
-  let randomGeneratedPassword = newSymbolLowString.substring(
-    Math.floor(Math.random() * symbolLowArr),
-    lengthBar.value
-  );
-  password.textContent = randomGeneratedPassword;
+  generateRandomPassword(newSymbolLowString, symbolLowArr);
 };
 
-lengthBar.addEventListener("input", generatePassword);
+// Function to copy the password
+const copyPasswordToClipboard = () => {
+  let text = password.textContent;
+  let input = document.createElement("input");
+  input.setAttribute("value", text);
+  document.body.appendChild(input);
+  input.select();
+  document.execCommand("copy");
+  input.parentNode.removeChild(input);
+  document.querySelector(".alert").style.opacity = 1;
+  setTimeout(() => {
+    document.querySelector(".alert").style.opacity = 0;
+  }, 2000);
+};
+
+// Event on the length bar
+lengthBar.addEventListener("input", main);
