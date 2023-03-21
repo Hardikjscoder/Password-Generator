@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JavaScript Project - Password Generator</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+      defer
+    ></script>
+
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="container text-center">
+      <h1 class="my-3">Password Generator</h1>
+
+      <div
+        class="d-flex justify-content-center align-items-center flex-column text-center"
+      >
+        <div>
+          <label for="password-length" class="form-label">Length :</label>
+          <span id="lengthText">10</span>
+        </div>
+        <input
+          type="range"
+          name="range"
+          class="form-range"
+          id="lengthBar"
+          value="10"
+          min="1"
+          max="20"
+        />
+
+        <div
+          class="input-group mb-3 d-flex justify-content-center align-items-center my-3"
+        >
+          <div
+            class="input-group-text d-flex justify-content-between"
+            style="width: 33vw; background: #191919; color: white"
+          >
+            <span class="mx-4">Include Uppercase</span>
+            <input
+              class="form-check-input mt-0"
+              type="checkbox"
+              value=""
+              id="uppercaseCheck"
+              aria-label="Checkbox for following text input"
+            />
+          </div>
+        </div>
+        <div
+          class="input-group mb-3 d-flex justify-content-center align-items-center my-3"
+        >
+          <div
+            class="input-group-text d-flex justify-content-between"
+            style="width: 33vw; background: #191919; color: white"
+          >
+            <span class="mx-4">Include Numbers</span>
+            <input
+              class="form-check-input mt-0"
+              type="checkbox"
+              id="numbersCheck"
+              value=""
+              aria-label="Checkbox for following text input"
+            />
+          </div>
+        </div>
+        <div
+          class="input-group mb-3 d-flex justify-content-center align-items-center my-3"
+        >
+          <div
+            class="input-group-text d-flex justify-content-between"
+            style="width: 33vw; background: #191919; color: white"
+          >
+            <span class="mx-4">Include Symbols</span>
+            <input
+              class="form-check-input mt-0"
+              type="checkbox"
+              id="symbolsCheck"
+              value=""
+              aria-label="Checkbox for following text input"
+            />
+          </div>
+        </div>
+        <code id="password"></code>
+        <button
+          class="btn btn-outline-info"
+          id="generateBtn"
+          onclick="generatePassword()"
+        >
+          Generate Password
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
