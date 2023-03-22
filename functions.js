@@ -27,6 +27,14 @@ const generateRandomPassword = (str, arr) => {
   password.textContent = randomGeneratedPassword;
 };
 
+// Function that takes a string convered to array, shuffles it and generates random password
+const shuffleArrAndGeneratePassword = (str) => {
+  let arr = str.split("");
+  shuffleArr(arr);
+  let newStr = arr.join("");
+  generateRandomPassword(newStr, arr);
+};
+
 // Function to generate password for lowercase
 const generatePasswordLowerCase = () => {
   let lowercaseArr = lowercase.split("");
@@ -62,11 +70,26 @@ const generatePasswordSymbols = () => {
   generateRandomPassword(newSymbolLowString, symbolLowArr);
 };
 
+// Function to copy the password
+const copyPasswordToClipboard = () => {
+  let text = password.textContent;
+  let input = document.createElement("input");
+  input.setAttribute("value", text);
+  document.body.appendChild(input);
+  input.select();
+  document.execCommand("copy");
+  input.parentNode.removeChild(input);
+  document.querySelector(".alert").style.opacity = 1;
+  setTimeout(() => {
+    document.querySelector(".alert").style.opacity = 0;
+  }, 2000);
+};
+
 export {
-  shuffleArr,
-  generateRandomPassword,
   generatePasswordLowerCase,
   generatePasswordUpperCase,
   generatePasswordNumbers,
   generatePasswordSymbols,
+  shuffleArrAndGeneratePassword,
+  copyPasswordToClipboard,
 };
